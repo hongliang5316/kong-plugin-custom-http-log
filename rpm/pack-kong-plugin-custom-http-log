@@ -1,0 +1,17 @@
+#!/bin/bash
+version=$1
+name=kong-plugin-custom-http-log-$version
+
+if [ -d $name ]; then
+    rm -rf $name || exit 1
+fi
+
+mkdir $name || exit 1
+cp -R *.lua $name/ || exit 1
+
+tar cvf $name.tar $name || exit 1
+gzip -f --best $name.tar || exit 1
+cp -v $name.tar.gz ~/rpmbuild/SOURCES/
+
+rpmbuild --define="_version $version" -ba rpm/kong-plugin-custom-http-log.spec || exit 1
+rm -rf $name.tar.gz $name
