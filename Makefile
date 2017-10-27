@@ -1,6 +1,6 @@
 .PHONY: all compile
 
-version=0.01
+version=0.02
 
 all: compile
 

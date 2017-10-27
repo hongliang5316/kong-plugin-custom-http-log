@@ -134,7 +134,7 @@ local function _gen_data(ngx, conf)
     log_data[v] = ngx.var[v]
   end
 
-  return {
+  local serialize = {
     request = {
       uri = ngx.var.request_uri,
       request_uri = ngx.var.scheme .. "://" .. ngx.var.host .. ":" .. ngx.var.server_port .. ngx.var.request_uri,
@@ -164,6 +164,8 @@ local function _gen_data(ngx, conf)
     started_at = ngx.req.start_time() * 1000,
     log_data = log_data
   }
+
+  return cjson_encode(serialize)
 end
 
 function HttpLogHandler:log(conf)
