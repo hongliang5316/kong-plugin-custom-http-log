@@ -1,4 +1,4 @@
-%define         kong_plugin_suffix     /usr/local/share/lua/5.1/kong/plugins/
+%define         kong_plugin_dir     /usr/local/share/lua/5.1/kong/plugins/
 %define         kong_user       nobody
 %define         kong_group      nobody
 %define         __os_install_post /usr/lib/rpm/brp-compress
@@ -30,7 +30,7 @@ The custom-http-log plugin for kong
 
 %install
 rm -rf $RPM_BUILD_ROOT
-export destdir=$RPM_BUILD_ROOT%{kong_plugin_suffix}
+export destdir=$RPM_BUILD_ROOT%{kong_plugin_dir}
 install -d $destdir
 install -d $destdir/custom-http-log
 install *.lua $destdir/custom-http-log/
@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 
 #%files -f %{name}.manifest
 %files
-%{kong_plugin_suffix}/custom-http-log/*.lua
+%{kong_plugin_dir}/custom-http-log/*.lua
 %defattr(-,%{kong_user},%{kong_group},-)
 
 %changelog
